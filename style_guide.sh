@@ -78,14 +78,21 @@ $GLOBAL_VARIABLE
 here
 EOF
 
-# 7. Main Function. Scripts of any considerable lenghth and complexity shall
-#    use a main() function. This will be the last thing in the script except
-#    main that calls the script. the function call will always include the ${@}
-#    variable to pass all variables to the main function, used or not. The
-#    exception to this is if you have a switch handler function that runs before
-#    main. If you have a switch handler function, this is run before main() and
-#    feeds santized positional parameters to main sans switches which are
-#    already global variables
+# 7. Error handling.
+#    all error messages shall pipe to STDERR. Its also recommended that larger
+#    scripts implement error checking functions see five_fingers.sh. Help text
+#    is also considered "error" text and shall be piped to STDERR as well.
+echo 1>&2 "error message"
+
+# 8. Main Function.
+#    Scripts of any considerable lenghth and complexity shall use a main()
+#    function. This will be the last thing in the script except main that calls
+#    the script. the function call will always include the ${@} variable to pass
+#    all variables to the main function, used or not. The exception to this is
+#    if you have a switch handler function that runs before main. If you have a
+#    switch handler function, this is run before main() and feeds santized
+#    positional parameters to main sans switches which are already global
+#    variables
 
 main(){
   echo "main program function"
