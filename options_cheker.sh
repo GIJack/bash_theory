@@ -5,15 +5,15 @@
 switch_checker() {
   while [ ! -z "$1" ];do
    case "$1" in
-    --option1)
+    --option1|-o1)
      ##This is an switch  
      true
      ;;
-    --option2)
+    --option2|-o2)
      #another switch
      true
      ;;
-    --option3)
+    --option3|-o3)
      #a third switch
      true
      ;;
