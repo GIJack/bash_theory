@@ -6,7 +6,11 @@
 # and differntiate the important data in a wall of text. Its very important
 # to have a consistent color scheme of what colors mean in your application.
 
-# The following colors are standard
+# Proper way to do this is to use variables install of calls to tput every time
+# Not only is this faster(marginally), it also makes your script far more
+# readable.
+
+# The following colors are standard:
 
 # error, failure	- bright red
 # warning		- bright yellow
@@ -17,6 +21,24 @@
 # proper names, serials
 # versions, etc..	- bright white
 # block text		- undeccorated
+
+# Recommendations:
+# for columed and formated data, use alternating green and yellow, as these
+# colors shall generally be distinctable to persons with red green color
+# blindess. A third color if needed should be purple. Blue and dark and medium
+# grey shall be avoided unless need be if using a black background because they
+# are not easily legible. Bright Red, Green, Yellow, Cyan, and pink are the
+# most visible.
+
+# When chosing colors you should always consider local and global culture
+# regarding color. Red is widely recognized as the color of failure. It is the
+# color of stop signs, red lights, corrections, negative value sheets. It means
+# BAD.
+
+# Green is the color of green lights, growing things and life. Yellow is
+# an in between.
+
+### The Color Variables ###
 
 # Modifiers
 BRIGHT=$(tput bold)
