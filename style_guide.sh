@@ -42,18 +42,18 @@ functions(){
 #    indented, see above. same is true for loops and ;do.
 
 # 4. echo and printing text:
-# echo'ing text generally gets quoted with double "" quotes, unless unable, then
-# gets quoted with '' single quotes.
+#    echo'ing text generally gets quoted with double "" quotes, unless unable,
+#    then gets quoted with '' single quotes.
 echo "this is output"
 
 # 5. Functions and variables:
-# Functions shall be named with underscores _ seperating names and be all lower
-# case names. variables used within functions shall use the local function.
-# Variable are preffered with ${1} as opposed to $1.
+#    Functions shall be named with underscores _ seperating names and be all
+#    lower case names. variables used within functions shall use the local
+#    function. Variable are preffered with ${1} as opposed to $1.
 
-# global variables should be all uppercase, while local variables should be all
-# lower case. for, and any other temporary variable is considered local
-# regardless of context.
+#    Global variables should be all uppercase, while local variables should be
+#    all lower case. for, and any other temporary variable is considered local
+#    regardless of context.
 
 GLOBAL_VARIABLE=${1}
 my_func(){
