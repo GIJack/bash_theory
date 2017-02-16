@@ -37,4 +37,4 @@ main(){
 PARMS=""
 switch_checker "${@}"
 #set ${PARMS}
-main ${PARAMS}
+main ${PARMS}
