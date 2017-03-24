@@ -23,16 +23,17 @@ functions(){
    elif [ statement ];then
     echo "false"
   fi
+  # This is a switching statement
   case ${variable} in
    one)
-    "this is case one"
+    echo "this is case one"
     ;;
    two)
-    "this is case two"
+    echo "this is case two"
     ;;
    *)
-    "this is everything else"
-   ;;
+    echo "this is everything else"
+    ;;
   esac
 }
 
