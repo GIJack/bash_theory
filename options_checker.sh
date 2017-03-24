@@ -2,20 +2,30 @@
 #
 #  GI_Jack. Example options checker.
 
+# SCRIPT DEFAULTS
+
+declare -a CONFIG
 switch_checker() {
+  # This function checks generates a useable configuration as an array and
+  # filters out --switches and their values leaving just unswitched paramters.
+  # Its important not to run any real code here, and just set variables. The
+  # exception being help_and_exit() which simply prints help text and exits.
   while [ ! -z "$1" ];do
    case "$1" in
-    --option1|-a)
-     ##This is an switch  
-     true
+    --help|-\?)
+     # Help and Exit. This switch does nothing, but call the help_and_exit
+     # routine. see five_fingers.sh
+     help_and_exit
      ;;
-    --option2|-b)
-     #another switch
-     true
+    --switch-option|-s)
+     # This is a switch option, its boolean. Presence of the switch sets it.
+     CONFIG[SWITCH]=true  
      ;;
-    --option3|-c)
-     #a third switch
-     true
+    --text-option|-t)
+     # This is a text option. The next parameter is the value. You will notice
+     # The two shifts remove both value and option
+     CONFIG[TEXT]="${2}"
+     shift
      ;;
     *)
      ##This is not a switch, we make the new command line without
