@@ -4,7 +4,10 @@
 
 # SCRIPT DEFAULTS
 
-declare -a CONFIG
+# the CONFIG is an associative array. You can use simple text variables as well
+# Showing off some BASH4 features
+declare -A CONFIG
+
 switch_checker() {
   # This function checks generates a useable configuration as an array and
   # filters out --switches and their values leaving just unswitched paramters.
