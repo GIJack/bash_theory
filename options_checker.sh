@@ -26,13 +26,14 @@ switch_checker() {
      ;;
     --text-option|-t)
      # This is a text option. The next parameter is the value. You will notice
-     # The two shifts remove both value and option
+     # the shift after the text variable removes the value, and the shift at the
+     # bottom of the loop removes the option
      CONFIG[TEXT]="${2}"
      shift
      ;;
     *)
-     ##This is not a switch, we make the new command line without
-     # without switches. counting can be done with ${#}
+     # This is not a switch, we add all non switch parameters to $PARAMS and
+     # then when we run main(), its fed to main() as if it were the command line
      PARMS+="${1}"
      ;;
    esac
