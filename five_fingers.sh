@@ -26,6 +26,8 @@
 
 #Help and and exit. Should be explanitory. Big note, use cat <<EOF instead of
 # echo
+
+# GI_Jack Licensed under the LGPLv3
 help_and_exit(){
   cat 1>&2 << EOF
 five_fingers.sh:
