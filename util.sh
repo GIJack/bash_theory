@@ -2,6 +2,17 @@
 
 # These are a few extra utility functions that compliment the finger fingers
 
+DEP_LIST="bash cp rm"
+check_deps(){
+  #This function checks dependencies. looks for executable binaries in path
+  for dep in ${DEP_LIST};do
+    which ${dep} &> /dev/null
+    if [ $? -ne 0 ];then
+      exit_with_error 4 "$dep is not in \$PATH! This is needed to run. Quitting"
+    fi
+  done
+}
+
 ### ------------------------------------------------------------------------ ###
 
 # check_sudo and as_root. check_sudo tests if sudo can be executed by the script
