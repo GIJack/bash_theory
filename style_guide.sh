@@ -1,4 +1,5 @@
 #!/bin/bash
+#
 # This is my style guide. There are many like it, but this one is mine.
 # Line one is the shebang. The shebang is always line one, and it always points
 # to bash. #!/bin/bash is safe on GNU systems, otherwise #!/usr/bin/env bash
@@ -6,26 +7,27 @@
 
 # Why BASH? Because its native to the ever present GNU/Linux system, and its
 # been ported to run on everything.
+# - GI_Jack
 
 # 1. Comments:
 #    Comments lines are done with a comment at the beginning of the line and
-#    given one space between text and comment. additional spaces for
-#    justification as needed. comments should respect the 80 line margin
+#    given one space between # and commend. additional spaces for justification
+#    as needed. comments should respect the 80 line margin.
 
 # 2. Indents:
 #    there are two types of indent, step and half step. A full step is two
 #    spaces functions, if/case statements get a full indent. substatements of
-#    case and if such as elif and )) are given a half step.
+#    case and if such as elif and case switches are given a half step.
 functions(){
   echo "Functions and full statements get a full indent"
-  if [ statement ];then
+  if [ statement ];then #then statemen is placed on the same line as if
     echo "true"
-   elif [ statement ];then
+   elif [ statement ];then # halfstep for the elif
     echo "false"
   fi
   # This is a switching statement
   case ${variable} in
-   one)
+   one) #This is half stepped
     echo "this is case one"
     ;;
    two)
@@ -42,9 +44,16 @@ functions(){
 #    if, and fi shall be the same indentation, with else and elif one half step
 #    indented, see above. same is true for loops and ;do.
 
+VARIABLE="ONE TWO THREE FOUR"
+loop_statement(){
+  for item in $VARIABLE;do
+    echo "item"
+  done
+}
+
 # 4. echo and printing text:
 #    echo'ing text generally gets quoted with double "" quotes, unless unable,
-#    then gets quoted with '' single quotes.
+#    then gets quoted with '' single quotes. Any redirect goes before the text
 echo "this is output"
 
 # 5. Functions and variables:
@@ -53,8 +62,11 @@ echo "this is output"
 #    function. Variable are preffered with ${1} as opposed to $1.
 
 #    Global variables should be all uppercase, while local variables should be
-#    all lower case. for, and any other temporary variable is considered local
-#    regardless of context.
+#    all lower case. for loops, and any other temporary variable is considered
+#    local regardless of context.
+
+#    All variables shall be declared at the top of their relivant structure
+#    Locals at the top of their function, globals at the top of the script.
 
 GLOBAL_VARIABLE=${1}
 my_func(){
@@ -64,10 +76,10 @@ my_func(){
   done
 }
 
-# 6. blocks of text:
+# 6. Block Text
 #    Blocks of text longer than 2-3 lines in length shall be handled by
-#    cat << EOF instead of echo. All block text(non-generated) shalled be
-#    limited to 80 characters
+#    cat << EOF instead of echo. Block Text should be manually formatted with
+#    Newlines to respect the 80 character list
 cat << EOF
 This is a block of printed text
 the user sees this printed just like this.
@@ -79,10 +91,11 @@ $GLOBAL_VARIABLE
 here
 EOF
 
-# 7. Error handling.
+# 7. Error handling and use of STDERR.
 #    all error messages shall pipe to STDERR. Its also recommended that larger
 #    scripts implement error checking functions see five_fingers.sh. Help text
 #    is also considered "error" text and shall be piped to STDERR as well.
+#    Redirrect should be before the output text.
 echo 1>&2 "error message"
 
 # 8. Main Function.
