@@ -12,6 +12,8 @@
 
 # secure_parse_config() imports to named array called CONFIG
 
+# error codes 2-no input 1-ran with error
+
 parse_config(){
   # parse a key=pair configuration file. Less Dangerously. one parameter, an
   # input file
@@ -20,9 +22,9 @@ parse_config(){
   local key=""
   local value=""
   
+  [ -f ${infile} ] || return 2 # infile is not a file
   # Now we have an array of file lines
-  readarray file_lines < "${infile}"
-
+  readarray file_lines < "${infile}" || return 1 # error proccessing
   for line in ${file_lines[@]};do
     # Remove comments
     [ ${line} == "#" ]; continue
@@ -58,9 +60,10 @@ secure_parse_config(){
   local infile="${@}"
   local key=""
   local value=""
-  
+
+  [ -f ${infile} ] || return 2 # infile is not a file
   # Now we have an array of file lines
-  readarray file_lines < "${infile}"
+  readarray file_lines < "${infile}" || return 1 # error proccessing
 
   for line in ${file_lines[@]};do
     # Remove comments
