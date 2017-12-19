@@ -5,6 +5,12 @@
 # execution, and funciton replacement. Sourcing unknown files can be dangerous.
 # This is a demonstration of a safer config file parser. scrub config options
 #
+# There are two functions :
+
+# parse_config() imports key=pair values directly as bash variables. this will
+# override whatever values previously set. use as parse_config <filename>
+
+# secure_parse_config() imports to named array called CONFIG
 
 parse_config(){
   # parse a key=pair configuration file. Less Dangerously. one parameter, an
@@ -42,4 +48,39 @@ parse_config(){
   #Now, we can import the cleaned config
   source ${safe_config}
   rm $(safe_config)
+}
+
+################################################################################
+secure_parse_config(){
+  # parse a key=pair configuration file. Less Dangerously. outputs to an array
+  # called CONFIG
+  declare -A CONFIG
+  local infile="${@}"
+  local key=""
+  local value=""
+  
+  # Now we have an array of file lines
+  readarray file_lines < "${infile}"
+
+  for line in ${file_lines[@]};do
+    # Remove comments
+    [ ${line} == "#" ]; continue
+    line=$(cut -d "#" -f 1 <<< ${line} )
+    # Split key and value from lines
+    key=$(cut -d "=" -f 1 <<< ${line} )
+    value=$(cut -d "=" -f 2 <<< ${line} )
+    # Parse key. All variables uppercase, remove spaces, all non alphanumeric
+    # characters
+    key=$(key^^)
+    key=${key// /}
+    key=$(tr -cd "[:alnum:]" <<< $key)
+    # Parse value. Remove anything that can escape a variable and run code.
+    value=$(tr -d ";|&" <<< $value )
+    # Zero check. If after cleaning either the key or value is null, then
+    # write nothing
+    [ -z $key ] && continue
+    [ -z $value ] && continue
+    # write sanitized values to temp file
+    CONFIG[${key}]="${value}"
+  done
 }
