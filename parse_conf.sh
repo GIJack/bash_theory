@@ -19,7 +19,7 @@ parse_config(){
 
   for line in ${file_lines[@]};do
     # Remove comments
-    [ ${line} = "#" ]; continue
+    [ ${line} == "#" ]; continue
     line=$(cut -d "#" -f 1 <<< ${line} )
     # Split key and value from lines
     key=$(cut -d "=" -f 1 <<< ${line} )
