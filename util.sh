@@ -26,7 +26,6 @@ ROOT_METHOD="sudo"
 # Checks if this script can run sudo
 check_sudo(){
   # Check if this script can run sudo correctly.
-  local -i success
   local sudouser=""
   sudouser=$( sudo whoami )
   if [ ${sudouser} == "root" ];then
