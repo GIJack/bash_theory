@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# These are a few extra utility functions that compliment the finger fingers
+# These are a few extra utility functions that compliment the five fingers
 
 DEP_LIST="bash cp rm"
 check_deps(){
