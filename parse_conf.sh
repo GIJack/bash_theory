@@ -102,8 +102,8 @@ parse_config(){
  
    # Zero check. If after cleaning either the key or value is null, then
     # do nothing
-    [ -z $key ] && continue
-    [ -z $value ] && continue
+    [ -z ${key} ] && continue
+    [ -z ${value} ] && continue
 
     # Enter sanitized values to array "CONFIG"
     CONFIG["${key}"]="${value}"
