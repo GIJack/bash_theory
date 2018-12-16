@@ -4,7 +4,7 @@
 # is to santize input from config/default files to prevent end user from running
 # untrusted code as the shell. It should be noted that in general, shell should
 # never be considered "safe", however this makes parsing configuration files
-# safer by blocking chances to run code, and only parsing variables
+# safer by blocking chances to run code, and only parsing variables.
 #
 # This requires GNU Bash explicitly.
 #
