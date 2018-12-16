@@ -87,7 +87,6 @@ parse_enviroment(){
 ################################################################################
 parse_config(){
   # parse a key=pair configuration file into an array called CONFIG.
-  local array_name=
   declare -A CONFIG
   local infile="${@}"
   local key=""
