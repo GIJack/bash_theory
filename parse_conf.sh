@@ -1,26 +1,39 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
-# These two functions are for parse settings and configuration files. The first
-# "parse_enviroment()", parses a shell enviroment file, a text file with a set
-# of key=value instructions that are loaded as shell variables in the current
-# script. The second "parse_config()", loads the same into a bash array called
-# "CONFIG"
+# These two functions are for parse settings and configuration files. The goal
+# is to santize input from config/default files to prevent end user from running
+# untrusted code as the shell. It should be noted that in general, shell should
+# never be considered "safe", however this makes parsing configuration files
+# safer by blocking chances to run code, and only parsing variables
 #
-# These functions santize inputs and respect the "#" comment character.
+# This requires GNU Bash explicitly.
+#
+# "#" is respected as the comment character, like shell.
 #
 # There are two functions :
 
-# parse_enviroment() - is to parse an enviroment variable file, after scrubbing
-#			sanitizing inputs. It is a drop in replacement for
-#			source. NOTE: all variables will be made uppercase.
+# parse_enviroment() -	This is a "safer" way to parse an enviroment variable
+#			file. It will protect from functions being run and
+#			escapes in variables used to run code. Shell is never
+#			considered to be "safe", but this is safer than merely
+#			running "source" on a potentially unknown file.
+#
+#			NOTE: all variables will be made UPPERCASE.
+#
+#			This should be acceptable if parsing a sysadmin
+#			configured "default" file.
+#
 #	Usage:
 #	parse_enviroment [file]
-
-# parse_config() -	parses a key=value value config into an named array named
-#			config after sanitizing data. the default name for the
-#			array is CONFIG, although it can be specified. This
-#			strips all non alphanumer characters from the key, and
-#			removes	escaping characters from the the value.
+#
+# parse_config() -	parses a key=value value config into an named array
+#			named $CONFIG after sanitizing data. the default name
+#			for the array is CONFIG, although it can be specified.
+#			This strips all non alphanumer characters from the key,
+#			and removes escaping characters from the the value.
+#
+#			This is an even safer option if parsing data from an
+#			unknown config provided by an untrusted end user.
 #	Usage:
 #	parse_config [file]
 
@@ -93,14 +106,13 @@ parse_config(){
     key=$(cut -d "=" -f 1 <<< ${line} )
     value=$(cut -d "=" -f 2 <<< ${line} )
 
-    # Parse key. All variables uppercase, remove spaces, all non alphanumeric
-    # characters
+    # Parse key. Alphanumeric keys only
     key=${key// /}
     key=$(tr -cd "[:alnum:]" <<< $key)
     # Parse value. Remove anything that can escape a variable and run code.
     value=$(tr -d ";|&" <<< $value )
  
-   # Zero check. If after cleaning either the key or value is null, then
+    # Zero check. If after cleaning either the key or value is null, then
     # do nothing
     [ -z ${key} ] && continue
     [ -z ${value} ] && continue
