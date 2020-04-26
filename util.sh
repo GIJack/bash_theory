@@ -41,10 +41,13 @@ as_root(){
   # execute a command as root.
   case $ROOT_METHOD in
    sudo)
-    sudo $@
+    sudo ${@}
+    ;;
+   polkit)
+    pkexec ${@}
     ;;
    uid)
-    $@
+    ${@}
     ;;
   esac
 }
