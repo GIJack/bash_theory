@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # This is my style guide. There are many like it, but this one is mine.
+#
 # Line one is the shebang. The shebang is always line one, and it always points
-# to bash. #!/bin/bash is safe on GNU systems, otherwise #!/usr/bin/env bash
-# is safe.
+# to bash. #!/usr/bin/env bash should be used, unless the script is written for
+# a specific system with no intent of portability
 
 # Why BASH? Because its native to the ever present GNU/Linux system, and its
 # been ported to run on everything.

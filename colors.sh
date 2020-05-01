@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 # Console colors.
 # GPLv3 GI Jack
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # The point of these 5 functions is to give a bash script a consistant feel,
 # and make scripting more joyful.

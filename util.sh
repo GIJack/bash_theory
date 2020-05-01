@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # These are a few extra utility functions that compliment the five fingers
 
