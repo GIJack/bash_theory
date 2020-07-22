@@ -7,6 +7,7 @@
 # the CONFIG is an associative array. You can use simple text variables as well
 # Showing off some BASH4 features
 declare -A CONFIG
+declare PARMS=""
 
 switch_checker() {
   # This function checks generates a useable configuration as an array and
@@ -48,7 +49,5 @@ main(){
 
 # new command line has parameters with switches stripped out, put this before
 # your main() function
-PARMS=""
 switch_checker "${@}"
-#set ${PARMS}
 main ${PARMS}
