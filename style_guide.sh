@@ -21,9 +21,9 @@
 #    case and if such as elif and case switches are given a half step.
 functions(){
   echo "Functions and full statements get a full indent"
-  if [ statement ];then #then statemen is placed on the same line as if
+  if [ statement ];then #then statement is placed on the same line as if
     echo "true"
-   elif [ statement ];then # halfstep for the elif
+   elif [ statement ];then # half-step for the elif
     echo "false"
   fi
   # This is a switching statement
@@ -69,8 +69,10 @@ echo "this is output"
 #    All variables shall be declared at the top of their relivant structure
 #    Locals at the top of their function, globals at the top of the script.
 
+#    There shall be a space between the () and the { in functions
+
 GLOBAL_VARIABLE=${1}
-my_func(){
+my_func() {
   local local_variable="${1}"
   for item in ${GLOBAL_VARIABLE};do
     echo "${item}"
@@ -100,14 +102,14 @@ EOF
 echo 1>&2 "error message"
 
 # 8. Main Function.
-#    Scripts of any considerable lenghth and complexity shall use a main()
-#    function. This will be the last thing in the script except main that calls
-#    the script. the function call will always include the ${@} variable to pass
-#    all variables to the main function, used or not. The exception to this is
-#    if you have a switch handler function that runs before main. If you have a
-#    switch handler function, this is run before main() and feeds santized
-#    positional parameters to main sans switches which are already global
-#    variables
+#    Scripts that consist of more than one function and/or 20 lines long shall
+#    use a main() function. This will be the last thing in the script except
+#    main that calls the script. the function call will always include the ${@}
+#    variable to pass all variables to the main function, used or not. The
+#    exception to this is if you have a switch handler function that runs before
+#    main. If you have a switch handler function, this is run before main() and
+#    feeds santized positional parameters to main sans switches which are
+#    already global variables
 
 main(){
   echo "main program function"
