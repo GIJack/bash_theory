@@ -15,7 +15,7 @@ switch_checker() {
   # Its important not to run any real code here, and just set variables. The
   # exception being help_and_exit() which simply prints help text and exits.
   #
-  # Short options go before long options
+  # Short(UNIX) options go before long(GNU) options
   while [ ! -z "$1" ];do
    case "$1" in
      -\?|--help)
