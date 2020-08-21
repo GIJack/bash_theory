@@ -7,7 +7,6 @@
 # the CONFIG is an associative array. You can use simple text variables as well
 # Showing off some BASH4 features
 declare -A CONFIG
-declare PARMS=""
 
 switch_checker() {
   # This function checks generates a useable configuration as an array and
@@ -16,6 +15,9 @@ switch_checker() {
   # exception being help_and_exit() which simply prints help text and exits.
   #
   # Short(UNIX) options go before long(GNU) options
+
+  # Set this empty variable for catching leftover variables
+  PARMS=""
   while [ ! -z "$1" ];do
    case "$1" in
      -\?|--help)
