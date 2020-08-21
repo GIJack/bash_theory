@@ -14,18 +14,20 @@ switch_checker() {
   # filters out --switches and their values leaving just unswitched paramters.
   # Its important not to run any real code here, and just set variables. The
   # exception being help_and_exit() which simply prints help text and exits.
+  #
+  # Short options go before long options
   while [ ! -z "$1" ];do
    case "$1" in
-    --help|-\?)
+     -\?|--help)
      # Help and Exit. This switch does nothing, but call the help_and_exit
      # routine. see five_fingers.sh
      help_and_exit
      ;;
-    --switch-option|-s)
+    -s|--switch-option)
      # This is a switch option, its boolean. Presence of the switch sets it.
      CONFIG[SWITCH]=true  
      ;;
-    --text-option|-t)
+    -t|--text-option)
      # This is a text option. The next parameter is the value. You will notice
      # the shift after the text variable removes the value, and the shift at the
      # bottom of the loop removes the option
