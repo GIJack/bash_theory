@@ -39,7 +39,7 @@ switch_checker() {
     *)
      # This is not a switch, we add all non switch parameters to $PARAMS and
      # then when we run main(), its fed to main() as if it were the command line
-     PARMS+="${1}"
+     PARMS+="${1} "
      ;;
    esac
    shift
