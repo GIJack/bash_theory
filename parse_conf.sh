@@ -12,7 +12,7 @@
 #
 # There are two functions :
 
-# parse_enviroment() -	This is a "safer" way to parse an enviroment variable
+# parse_environment() -	This is a "safer" way to parse an enviroment variable
 #			file. It will protect from functions being run and
 #			escapes in variables used to run code. Shell is never
 #			considered to be "safe", but this is safer than merely
@@ -39,7 +39,7 @@
 
 # error codes 2-no input 1-ran with error 0-ran successfully
 
-parse_enviroment(){
+parse_environment(){
   # parse a key=pair shell enviroment file. NOTE all keys will be made UPPERCASE
   # variables. in parent script.
 
