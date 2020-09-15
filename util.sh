@@ -13,6 +13,23 @@ check_deps(){
   done
 }
 
+round(){
+  # Round instead of truncate. needs two vars: scale, and the float you need rounded
+  local -i scale=${1}
+  local raw_input=${2}
+  local -i int=$(cut -d "." -f 1 <<< $raw_input)
+  local -i float=$(cut -d "." -f 2 <<< $raw_input)
+  local -i keep_n=${float:0:${scale}}
+  local -i last_n=${float:0-1}
+
+  if [ $last_n -ge 5 ];then
+    keep_n+=1
+  fi
+
+  output="${int}"."${keep3}"
+  echo "$output"
+}
+
 ### ------------------------------------------------------------------------ ###
 
 # check_sudo and as_root. check_sudo tests if sudo can be executed by the script
