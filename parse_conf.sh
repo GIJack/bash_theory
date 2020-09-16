@@ -50,13 +50,13 @@ parse_environment(){
   # local -A file_lines
   # local line=""
   
-  [ -f ${infile} ] || return 2 # infile is not a file
+  [ -f "${infile}" ] || return 2 # infile is not a file
   # Now we have an array of file lines
   readarray file_lines < "${infile}" || return 1 # error proccessing
 
   for line in "${file_lines[@]}";do
     # Remove comments
-    [ ${line} == "#" ] && continue
+    [[ -z "{$line}" || "${line}" == "#" ]] && continue
     line=$(cut -d "#" -f 1 <<< ${line} )
 
     # Split key and value from lines
@@ -65,16 +65,16 @@ parse_environment(){
 
     # Parse key. Make the Key uppercase, remove spaces and all non-alphanumeric
     # characters
-    key=$(key^^)
-    key=${key// /}
-    key=$(tr -cd "[:alnum:]" <<< $key)
+    key="${key^^}"
+    key="${key// /}"
+    key="$(tr -cd "[:alnum:]" <<< $key)"
 
     # Parse value. Remove anything that can escape a variable and run code.
-    value=$(tr -d ";|&()" <<< $value )
+    value="$(tr -d ";|&()" <<< $value )"
 
     # Zero check. If after cleaning either the key or value is null, then
     # write nothing
-    [ -z $key ] && continue
+    [ -z ${key} ] && continue
     [ -z $value ] && continue
 
     # write sanitized values to temp file
@@ -100,23 +100,23 @@ parse_config(){
 
   for line in ${file_lines[@]};do
     # Remove comments
-    [ ${line} == "#" ] && continue
-    line=$(cut -d "#" -f 1 <<< ${line} )
+    [[ -z "${line}" || "${line}" == "#" ]] && continue
+    line="$(cut -d "#" -f 1 <<< ${line} )"
 
     # Split key and value from lines
-    key=$(cut -d "=" -f 1 <<< ${line} )
-    value=$(cut -d "=" -f 2 <<< ${line} )
+    key="$(cut -d "=" -f 1 <<< ${line} )"
+    value="$(cut -d "=" -f 2 <<< ${line} )"
 
     # Parse key. Alphanumeric keys only
-    key=${key// /}
-    key=$(tr -cd "[:alnum:]" <<< $key)
+    key="${key// /}"
+    key="$(tr -cd "[:alnum:]" <<< $key)"
     # Parse value. Remove anything that can escape a variable and run code.
-    value=$(tr -d ";|&" <<< $value )
+    value="$(tr -d ";|&" <<< $value )"
  
     # Zero check. If after cleaning either the key or value is null, then
     # do nothing
-    [ -z ${key} ] && continue
-    [ -z ${value} ] && continue
+    [ -z "${key}" ] && continue
+    [ -z "${value}" ] && continue
 
     # Enter sanitized values to array "CONFIG"
     CONFIG["${key}"]="${value}"
