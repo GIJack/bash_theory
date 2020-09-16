@@ -47,14 +47,16 @@ parse_environment(){
   local safe_config=$(mktemp)
   local key=""
   local value=""
+  # local -A file_lines
+  # local line=""
   
   [ -f ${infile} ] || return 2 # infile is not a file
   # Now we have an array of file lines
   readarray file_lines < "${infile}" || return 1 # error proccessing
 
-  for line in ${file_lines[@]};do
+  for line in "${file_lines[@]}";do
     # Remove comments
-    [ ${line} == "#" ]; continue
+    [ ${line} == "#" ] && continue
     line=$(cut -d "#" -f 1 <<< ${line} )
 
     # Split key and value from lines
@@ -81,7 +83,7 @@ parse_environment(){
 
   #Now, we can import the cleaned config and then delete it.
   source ${safe_config}
-  rm $(safe_config)
+  rm ${safe_config}
 }
 
 ################################################################################
@@ -98,7 +100,7 @@ parse_config(){
 
   for line in ${file_lines[@]};do
     # Remove comments
-    [ ${line} == "#" ]; continue
+    [ ${line} == "#" ] && continue
     line=$(cut -d "#" -f 1 <<< ${line} )
 
     # Split key and value from lines
