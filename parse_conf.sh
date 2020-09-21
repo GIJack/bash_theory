@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+
+# error codes:
+# 2-no/bad input
+# 1-ran with error
+# 0-ran successfully
+
 #
 # These two functions are for parse settings and configuration files. The goal
 # is to santize input from config/default files to prevent end user from running
@@ -37,7 +43,6 @@
 #	Usage:
 #	parse_config [file]
 
-# error codes 2-no input 1-ran with error 0-ran successfully
 
 parse_environment(){
   # parse a key=pair shell enviroment file. NOTE all keys will be made UPPERCASE
