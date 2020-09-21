@@ -18,13 +18,21 @@
 #
 # There are two functions :
 
-# parse_environment() -	This is a "safer" way to parse an enviroment variable
+# parse_environment() -	returns variables into the running script
+#
+#			This is a "safer" way to parse an enviroment variable
 #			file. It will protect from functions being run and
 #			escapes in variables used to run code. Shell is never
 #			considered to be "safe", but this is safer than merely
 #			running "source" on a potentially unknown file.
+#			
+#			This will import all shell variables in the file into
+#			the running shell/script, but will strip all functions
+#			and not execute any code. Designed for compatibility
+#			with "source" and use with default files that need this
 #
-#			NOTE: all variables will be made UPPERCASE.
+#			NOTE: all variables will be made UPPERCASE, and all
+#			spaces and escape ";|&()" characters are stripped
 #
 #			This should be acceptable if parsing a sysadmin
 #			configured "default" file.
@@ -32,14 +40,17 @@
 #	Usage:
 #	parse_enviroment [file]
 #
-# parse_config() -	parses a key=value value config into an named array
-#			named $CONFIG after sanitizing data. the default name
-#			for the array is CONFIG, although it can be specified.
-#			This strips all non alphanumer characters from the key,
-#			and removes escaping characters from the the value.
+# parse_config() -	Parses config into an associative array named $CONFIG,
+#			with every key=value pair loaded into the array.
 #
-#			This is an even safer option if parsing data from an
-#			unknown config provided by an untrusted end user.
+#			Keys are limited to alphanumeric characters and
+#			everything else is stripped.
+#
+#			In the value, ";|&()" characters are stripped, and
+#			everything else is kept.
+#
+#			Case sensativity in both cases is retained
+#
 #	Usage:
 #	parse_config [file]
 
