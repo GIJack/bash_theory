@@ -98,7 +98,7 @@ parse_environment(){
 
   #Now, we can import the cleaned config and then delete it.
   source ${safe_config}
-  rm ${safe_config}
+  rm -f ${safe_config}
 }
 
 ################################################################################
