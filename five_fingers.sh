@@ -35,7 +35,7 @@ five_fingers.sh:
 This script is an example of the five fingers
 
 EOF
-  exit 1
+  exit 4
 }
 
 # communicate with the user
