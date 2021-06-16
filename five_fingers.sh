@@ -3,7 +3,7 @@
 # The point of these 5 functions is to give a bash script a consistant feel,
 # and make scripting more joyful.
 
-# The "Five Finger Death Punch" is my answer to the three finger claw.
+# The "Five Fingers" is my answer to the three finger claw.
 # https://gist.github.com/dotike/8257326 - three finger claw.
 
 # The three finger claw is insuffiecient and does not solve use case scenarios.
@@ -32,7 +32,7 @@ help_and_exit(){
   cat 1>&2 << EOF
 five_fingers.sh:
 
-This script is an example of the five finger death punch.
+This script is an example of the five fingers
 
 EOF
   exit 1
