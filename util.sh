@@ -39,9 +39,9 @@ ROOT_METHOD="sudo"
 
 # Checks if this script can run sudo
 check_sudo(){
-  # Check if this script can run sudo correctly.
+  # Check if this script can run sudo correctly. uses as_root, see below
   local sudouser=""
-  sudouser=$( sudo whoami )
+  sudouser=$( as_root whoami )
   if [ ${sudouser} == "root" ];then
     echo true
    else
