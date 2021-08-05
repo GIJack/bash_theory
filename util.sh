@@ -41,7 +41,17 @@ ROOT_METHOD="sudo"
 check_sudo(){
   # Check if this script can run sudo correctly. uses as_root, see below
   local sudouser=""
-  sudouser=$( as_root whoami )
+  if [ ${UID} -eq 0 ];then
+    ROOT_METHOD="uid"
+   elif [[ ! -z $DISPLAY  && $(tty) = /dev/pts/* ]];then
+    ROOT_METHOD="pkexec"
+   elif [ $(sudo whoami ) == "root" ];then
+    ROOT_METHOD="sudo"
+   else
+    exit_with_error 4 "Cannot gain root! This program needs root to work Exiting..."
+  fi
+
+  sudouser=$( sudo whoami )
   if [ ${sudouser} == "root" ];then
     echo true
    else
@@ -65,14 +75,5 @@ as_root(){
     ;;
   esac
 }
-
-# Example code for ROOT_METHOD detection
-  if [ ${UID} -eq 0 ];then
-    ROOT_METHOD="uid"
-   elif [ $(check_sudo) == "true" ];then
-    ROOT_METHOD="sudo"
-   else
-    exit_with_error 4 "Cannot gain root! This program needs root to work Exiting..."
-  fi
 
 ### ------------------------------------------------------------------------ ###
