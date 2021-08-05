@@ -69,7 +69,7 @@ as_root(){
 # Example code for ROOT_METHOD detection
   if [ ${UID} -eq 0 ];then
     ROOT_METHOD="uid"
-   elif [ ${can_sudo} == "true" ];then
+   elif [ $(check_sudo) == "true" ];then
     ROOT_METHOD="sudo"
    else
     exit_with_error 4 "Cannot gain root! This program needs root to work Exiting..."
