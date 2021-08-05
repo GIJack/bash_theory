@@ -37,26 +37,21 @@ round(){
 # The default option in this case is sudo.
 ROOT_METHOD="sudo"
 
-# Checks if this script can run sudo
+
 check_sudo(){
   # Check if this script can run sudo correctly. uses as_root, see below
-  local sudouser=""
   if [ ${UID} -eq 0 ];then
     ROOT_METHOD="uid"
-   elif [[ ! -z $DISPLAY  && $(tty) = /dev/pts/* ]];then
-    ROOT_METHOD="pkexec"
+   # TODO: FIX Polkit support
+   #elif [[ ! -z $DISPLAY  && $(tty) = /dev/pts/* ]];then
+   # ROOT_METHOD="pkexec"
    elif [ $(sudo whoami ) == "root" ];then
     ROOT_METHOD="sudo"
    else
     exit_with_error 4 "Cannot gain root! This program needs root to work Exiting..."
   fi
-
-  sudouser=$( sudo whoami )
-  if [ ${sudouser} == "root" ];then
-    echo true
-   else
-    echo false
-  fi
+  # one last check
+  [ $( as_root whoami ) != "root" ] && exit_with_error 4 "Cannot gain root! This program needs root to work Exiting..."
 }
 # sudo frontent. use sudo if it is selected, if we are running as UID 0, we can
 # simply run the command dirrectly. you can add more options here if you have
