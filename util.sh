@@ -6,10 +6,7 @@ DEP_LIST="bash cp rm"
 check_deps(){
   #This function checks dependencies. looks for executable binaries in path
   for dep in ${DEP_LIST};do
-    which ${dep} &> /dev/null
-    if [ $? -ne 0 ];then
-      exit_with_error 4 "$dep is not in \$PATH! This is needed to run. Quitting"
-    fi
+    which ${dep} &> /dev/null || "$dep is not in \$PATH! This is needed to run. Quitting"
   done
 }
 
