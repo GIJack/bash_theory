@@ -27,6 +27,20 @@ round(){
   echo "$output"
 }
 
+strip_comments() {
+  # Strip comments from a file-like text variable. Takes variable as input parameter
+  local IFS="
+"
+  local in_lines="${@}"
+  local out_lines=""
+  local i_line=""
+  for line in ${in_lines[@]};do
+    line="$(cut -d "#" -f1 <<< ${line} )"
+    [ "${line}" != "" ] && out_lines+="${line}\n"
+  done
+  printf "${out_lines}"
+}
+
 ### ------------------------------------------------------------------------ ###
 
 # check_sudo and as_root. check_sudo tests if sudo can be executed by the script
