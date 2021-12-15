@@ -19,6 +19,30 @@
 #    there are two types of indent, step and half step. A full step is two
 #    spaces functions, if/case statements get a full indent. substatements of
 #    case and if such as elif and case switches are given a half step.
+
+# 3. Exit Codes:
+#
+#   Exit codes are specified with the exit command. exit N. Where N is an INT
+#   that is between 0 and 255. This is the scheme I use:
+#
+#   0 - Success		   : Program ran with no errors. NOTE: Anything other
+#                            than a 0 will count as a failure with software and
+#			     scripts that check for errors.
+#
+#   1 - Operational Error  : The script ran, and the proccess failed.
+#
+#   2 - Conditional Error  : The script ran, but had the wrong start conditions.
+#			     Either sanity checks failed, inputs where missing
+#                            or of the wrong type, the script was ran by the
+#			     wrong user, or in the wrong network or otherwise
+#			     wrong conditions. Script exits instead of running.
+#
+#   4 - help		  : the program printed block text with instructions and
+#			    exited. No proccessing of any kind was done, save
+#			    figuring out that help_and_exit needs to be run.
+#			    help messages should be printed to STDERR under
+#			    most circumstances.
+
 functions(){
   echo "Functions and full statements get a full indent"
   if [ statement ];then #then statement is placed on the same line as if
