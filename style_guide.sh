@@ -23,7 +23,10 @@
 # 3. Exit Codes:
 #
 #   Exit codes are specified with the exit command. exit N. Where N is an INT
-#   that is between 0 and 255. This is the scheme I use:
+#   that is between 0 and 255. exit codes when stored as a variable should be
+#   stored as INT(declare/local -i var)
+#
+#   Scheme for exit codes:
 #
 #   0 - Success		   : Program ran with no errors. NOTE: Anything other
 #                            than a 0 will count as a failure with software and
@@ -42,6 +45,14 @@
 #			    figuring out that help_and_exit needs to be run.
 #			    help messages should be printed to STDERR under
 #			    most circumstances.
+#
+#  Application Specific	 :  error codes 8, 16, 32, 64, and 128 may be assigned
+#			    on a per application basis. They will be added to
+#			    one of the defined error codes above, so the
+#			    resulting byte could be used with bitwise analysis.
+#
+#			    example: App specific Operational Error. 128 + 1 =
+#			    exit 129
 
 functions(){
   echo "Functions and full statements get a full indent"
