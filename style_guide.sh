@@ -1,14 +1,10 @@
 #!/usr/bin/env bash
 #
-# This is my style guide. There are many like it, but this one is mine.
+# This is my style guide.
 #
 # Line one is the shebang. The shebang is always line one, and it always points
 # to bash. #!/usr/bin/env bash should be used, unless the script is written for
 # a specific system with no intent of portability
-
-# Why BASH? Because its native to the ever present GNU/Linux system, and its
-# been ported to run on everything.
-# - GI_Jack
 
 # 1. Comments:
 #    Comments lines are done with a comment at the beginning of the line and
